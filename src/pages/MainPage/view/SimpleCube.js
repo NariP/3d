@@ -35,7 +35,7 @@ const SimpleCube = () => {
     };
 
     animate();
-  });
+  }, []);
 
   return <Canvas3D ref={viewerRef} />;
 };

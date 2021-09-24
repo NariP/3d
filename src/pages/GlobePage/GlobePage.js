@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const GlobePage = () => {
   const viewerRef = useRef(null);
@@ -24,6 +25,7 @@ const GlobePage = () => {
     });
     return materialArray;
   };
+
   useEffect(() => {
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -43,23 +45,32 @@ const GlobePage = () => {
     const skybox = new THREE.Mesh(skyboxGeo, materialArray);
     scene.add(skybox);
 
-    const animate = () => {
-      skybox.rotation.x += 0.005;
-      skybox.rotation.y += 0.005;
+    // orbit controls
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enabled = true;
+    controls.minDistance = 700;
+    controls.maxDistance = 1500;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 1.0;
 
+    const animate = () => {
+      controls.update();
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
     };
 
+    const onWindowResize = () => {
+      camera.aspect = width / height;
+
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    };
+
     animate();
-  });
+    window.addEventListener('resize', onWindowResize, false);
+    return () => window.removeEventListener('resize', onWindowResize);
+  }, []);
 
   return <div ref={viewerRef} />;
 };
-const ft = new THREE.TextureLoader().load('/assets/skybox/corona_ft.png');
-const bk = new THREE.TextureLoader().load('/assets/skybox/corona_bk.png');
-const up = new THREE.TextureLoader().load('/assets/skybox/corona_up.png');
-const dn = new THREE.TextureLoader().load('/assets/skybox/corona_dn.png');
-const rt = new THREE.TextureLoader().load('/assets/skybox/corona_rt.png');
-const lt = new THREE.TextureLoader().load('/assets/skybox/corona_lt.png');
 export default GlobePage;

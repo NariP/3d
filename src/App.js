@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 function App() {
   return (
     <Wrapper>
-      <Header className="App-header">
+      <Header>
         <Link to="/">
           <Logo src="/static/logo/shapes.png" alt="3d logo" />
         </Link>
@@ -33,6 +33,7 @@ const Wrapper = styled.div({
 const Header = styled.header({
   display: 'flex',
   position: 'sticky',
+  height: '3em',
   alignItems: 'center',
   width: '100%',
   padding: '1em',
