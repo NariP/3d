@@ -39,11 +39,23 @@ const GlobePage = () => {
 
     viewerRef.current.appendChild(renderer.domElement);
 
+    // skybox
     const skyboxImage = 'corona';
     const materialArray = createMaterialArray(skyboxImage);
     const skyboxGeo = new THREE.BoxGeometry(10000, 10000, 10000);
     const skybox = new THREE.Mesh(skyboxGeo, materialArray);
     scene.add(skybox);
+
+    // globe
+    const globeGeo = new THREE.SphereGeometry(200, 50, 50);
+    const texture = new THREE.TextureLoader().load(
+      '/assets/maps/earth/land_ocean_ice_cloud_2048.jpeg',
+    );
+    const material = new THREE.MeshBasicMaterial({
+      map: texture,
+    });
+    const sphere = new THREE.Mesh(globeGeo, material);
+    scene.add(sphere);
 
     // orbit controls
     const controls = new OrbitControls(camera, renderer.domElement);

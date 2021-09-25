@@ -55,6 +55,9 @@ const LinkWrapper = styled.ul({
     listStyle: 'none',
     cursor: 'pointer',
   },
+  '& > a + a': {
+    marginLeft: '1em',
+  },
 });
 
 export default App;
