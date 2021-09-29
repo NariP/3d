@@ -3,8 +3,7 @@
 
 ## 데모 링크
 
-https://do-it-3d.netlify.app/globe
-
+https://do-it-3d.netlify.app
 * 초기 로딩이 많이 느립니다 유의해주세요 *
 
 ### 구현 목록
